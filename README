@@ -1,0 +1,37 @@
+// Stan Alexandra 312CD
+
+Runic
+
+	For this project, I wanted to organize my functions based on the tasks they perform. Unfortunately, some functions had to be placed before the final task because they rely on other functions that were not declared prior to the first task (Fractal Graphemes).
+
+	In the first part of the code, I have a few structures for everything I need for this project. After those structures, I have functions used to free everything in my memory.
+
+Fractal Graphemes:
+
+	For this task, I started with four functions used for the UNDO and REDO requirements, which are used throughout the code. Basically, what those functions do is create a snapshot like a history of every action and movement I make. The other function, restore_snapshot, replaces the active action with the content I saved in the snapshot using create_snapshot. Cmd_undo and cmd_redo are self-explanatory; they use the two functions mentioned before to execute the UNDO and REDO commands specified in the homework.
+
+	The next two functions execute the LSYSTEM and DERIVE commands. I read the symbol and the rule, saved them in "rules," and printed the message. Handle_derive reads the number of steps and verifies if an L-system is loaded. For each step, it processes each character of the current axiom. If the character has a rule, it replaces it with its successor. If it has no rule, it keeps the original character. Finally, cmd_lsystem handles the lsystem command specified in the homework, including everything you can do with it, such as the image.
+
+Turtle Graphics:
+
+	The first two functions manage the image I need for this task. The first one creates the image I am going to use, and the other one simply copies it. Save_ppm saves the image in the required format. Draw_line implements Bresenham's line algorithm.
+
+	Execute_turtle interprets the L-system's final string based on the axiom and rules it contains. Run_derive_to_string is similar to handle_derive, but instead of printing the final result, it returns it. Load_ppm loads a PPM image into memory. Finally, cmd_turtle uses everything mentioned above and prints the messages.
+
+Font:
+
+	Cmd_font opens the file and saves all information into the variables in the code. They have suggestive names, so I am not going to elaborate further. It cleans up the old font if one was already loaded and prints a success message.
+
+	Cmd_type renders text onto a loaded image using the loaded font. It validates that both the image and font are loaded. For each character in the text, it finds the corresponding glyph by encoding, iterates through the glyph bitmap, and advances the position by glyph.dwx (character width) for the next character. Then, it prints the message.
+
+Bitcheck:
+
+	Get_bit extracts a single bit from the image. Check_sequence detects interference patterns by searching for specific 4-bit patterns that indicate potential errors. Print_bit_warning calculates where an error was detected and prints what the pixel would look like if the corrupted bit were flipped. Cmd_bitcheck scans the entire image; it is the main command that identifies all interference patterns.
+
+Main:
+
+	Everything I mentioned before all the functions are used in main to make the code work properly.
+
+Note:
+
+	One function I didn't mention, because it is just an extra helper, is process_glyph_bitmap. I did not add this algorithm directly into the cmd_font functions to avoid deep indentation, so I decided to make it a separate function. In short, this function takes hex code from a font file and turns it into a picture of a letter that can be drawn.
